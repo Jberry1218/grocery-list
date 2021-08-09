@@ -10,6 +10,7 @@ import {
     TransitionGroup
 } from "react-transition-group";
 
+
 function ShoppingList() {
 
     const [items, changeItems] = useState([
@@ -23,7 +24,7 @@ function ShoppingList() {
         <Container>
             <Button 
                 color="dark" 
-                className="md-2" 
+                className="mb-4" 
                 onClick={() => {
                     const newName = prompt("Enter Item");
                     if (newName) {
@@ -33,8 +34,37 @@ function ShoppingList() {
             >
                 Add Item
             </Button>
+            <ListGroup>
+                <TransitionGroup className="grocery-list">
+                    {items.map(({id, name}) => (
+                       <CSSTransition key={id} timeout={500} classNames="fade">
+                           <ListGroupItem>
+                               <Button
+                                className="remove-btn px-1 py-0 me-2"
+                                color="danger"
+                                onClick={() => {
+                                    changeItems(items.filter(item => item.id !== id))
+                                }}
+                                >
+                                    x
+                                </Button>
+                                <Button
+                                className="add-btn px-1 py-0 me-2"
+                                color="success"
+                                onClick={() => {
+                                    changeItems([...items, { id: Math.random(), name: name}])
+                                }}
+                                >
+                                    +
+                                </Button>
+                               {name}
+                            </ListGroupItem>
+                       </CSSTransition>
+                    ))}
+                </TransitionGroup>
+            </ListGroup>
         </Container>
     );
 }
 
-export default ShoppingList
+export default ShoppingList;
