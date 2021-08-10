@@ -3,7 +3,6 @@ import {
     Button, 
     Col,
     Modal,
-    ModalHeader,
     ModalBody,
     Form,
     FormGroup,
@@ -11,7 +10,7 @@ import {
     Input
 } from "reactstrap";
 import { useDispatch } from "react-redux";
-import { add } from "../redux/slices/itemsSlice";
+import { addItem } from "../redux/slices/itemsSlice";
 
 function ItemSubmitModal() {
 
@@ -23,7 +22,7 @@ function ItemSubmitModal() {
     const dispatch = useDispatch();
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(add(itemInput));
+        dispatch(addItem(itemInput));
         toggle();
     }
 
@@ -31,7 +30,7 @@ function ItemSubmitModal() {
         <div>
             <Button
                 color="dark"
-                className="mb-2"
+                className="mb-3"
                 onClick={toggle}
             >
                 Add Item
@@ -63,7 +62,7 @@ function ItemSubmitModal() {
                                 />
                             </Col>
                             <Button
-                                color="secondary"
+                                color="dark"
                                 className="mt-3"
                             >
                                 Add Item

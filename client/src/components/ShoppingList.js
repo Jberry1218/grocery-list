@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Container,
     ListGroup,
@@ -10,45 +10,65 @@ import {
     TransitionGroup
 } from "react-transition-group";
 import { useSelector, useDispatch } from "react-redux";
-import { add, remove } from "../redux/slices/itemsSlice";
+import { addItem, removeItem, fetchItems } from "../redux/slices/itemsSlice";
 
 
 function ShoppingList() {
 
-    const items = useSelector((state) => state.items);
     const dispatch = useDispatch();
+    const categories = useSelector(state => state.items.items);
+    const itemsStatus = useSelector(state => state.items.status)
+    
+    useEffect(() => {
+        if (itemsStatus === 'idle') {
+          dispatch(fetchItems());
+        }
+    }, [itemsStatus, dispatch])
 
     return (
         <Container>
-            <ListGroup>
-                <TransitionGroup className="grocery-list">
-                    {items.map(item => (
-                       <CSSTransition key={item.id} timeout={500} classNames="fade">
-                           <ListGroupItem>
-                               <Button
-                                className="remove-btn px-1 py-0 me-2"
-                                color="danger"
-                                onClick={() => {
-                                    dispatch(remove(item.id));
-                                }}
-                                >
-                                    x
-                                </Button>
-                                <Button
-                                className="add-btn px-1 py-0 me-2"
-                                color="success"
-                                onClick={() => {
-                                    dispatch(add(item.name));
-                                }}
-                                >
-                                    +
-                                </Button>
-                               {item.name}
-                            </ListGroupItem>
-                       </CSSTransition>
-                    ))}
-                </TransitionGroup>
-            </ListGroup>
+            {
+                categories.map(category => {
+                    return (
+                        <div>
+                            <ListGroupItem className="category-header">{category._id.category}</ListGroupItem>
+                            {
+                                category.items.map(item => {
+                                return ( 
+                                    <ListGroup>
+                                        <TransitionGroup className="grocery-list">
+                                            <CSSTransition key={item.id} timeout={500} classNames="fade">
+                                            <ListGroupItem>
+                                                <Button
+                                                    className="remove-btn px-1 py-0 me-2"
+                                                    color="danger"
+                                                    onClick={() => {
+                                                        dispatch(removeItem(item.id));
+                                                    }}
+                                                    >
+                                                        x
+                                                    </Button>
+                                                    <Button
+                                                    className="add-btn px-1 py-0 me-2"
+                                                    color="success"
+                                                    onClick={() => {
+                                                        dispatch(addItem(item.name));
+                                                    }}
+                                                    >
+                                                        +
+                                                    </Button>
+                                                {item.name}
+                                                </ListGroupItem>
+                                            </CSSTransition>
+                                        </TransitionGroup>
+                                    </ListGroup>
+                                )
+                                })
+                            }
+                        </div>
+                    )
+                })
+            }
         </Container>
     );
 }

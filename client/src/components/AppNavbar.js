@@ -17,7 +17,7 @@ function AppNavbar() {
         <div>
             <Navbar color="dark" dark expand="md" className="mb-3 px-3">
                 <NavbarBrand href="/">
-                    <img src={process.env.PUBLIC_URL + "/groceries.png"} className="me-2" style={{width: "30px"}}/> 
+                    <img src={process.env.PUBLIC_URL + "/groceries.png"} alt="logo" className="me-2" style={{width: "30px"}}/> 
                     GroceryList
                 </NavbarBrand>
                 <NavbarToggler onClick={() => toggleOpen(!isOpen)} />

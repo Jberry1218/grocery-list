@@ -7,8 +7,14 @@ const Item = require("../../models/Item");
 // @route   GET api/items
 // @desc    Get all items
 router.get("/", (req, res) => {
-    Item.find()
-        .sort({ date: -1 })
+    let pipeline = [
+        {  $group: 
+            {   _id: { category: "$category" }, 
+                items: { $push: { name: "$name", id: "$_id" } }
+            }
+        }
+    ];
+    Item.aggregate(pipeline)
         .then(items => res.json(items));
 });
 
@@ -16,7 +22,9 @@ router.get("/", (req, res) => {
 // @desc    Create an item
 router.post("/", (req, res) => {
     const newItem = new Item({
-        name: req.body.name
+        name: req.body.name,
+        category: req.body.category,
+        count: req.body.count
     });
     newItem.save().then(item => res.json(item));
 });
@@ -30,7 +38,6 @@ router.delete("/:id", (req, res) => {
         )
         .catch(err => res.status(404).json({deleted: false}));
 })
-
 
 
 module.exports = router;

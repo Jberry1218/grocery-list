@@ -7,6 +7,14 @@ const ItemSchema = new Schema({
         type: String,
         required: true
     },
+    category: {
+        type: String,
+        required: true
+    },
+    count: {
+        type: Number,
+        required: true
+    },
     date: {
         type: Date,
         default: Date.now
