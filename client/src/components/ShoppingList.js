@@ -10,14 +10,14 @@ import {
     TransitionGroup
 } from "react-transition-group";
 import { useSelector, useDispatch } from "react-redux";
-import { addItem, removeItem, fetchItems } from "../redux/slices/itemsSlice";
+import { updateItem, fetchItems } from "../redux/slices/itemsSlice";
 
 
 function ShoppingList() {
 
     const dispatch = useDispatch();
-    const categories = useSelector(state => state.items.items);
-    const itemsStatus = useSelector(state => state.items.status)
+    const itemsList = useSelector(state => state.itemsList.itemsList);
+    const itemsStatus = useSelector(state => state.itemsList.status);
     
     useEffect(() => {
         if (itemsStatus === 'idle') {
@@ -26,38 +26,62 @@ function ShoppingList() {
     }, [itemsStatus, dispatch])
 
     return (
-        <Container>
+        <Container className="mb-5">
             {
-                categories.map(category => {
+                itemsList.map(category => {
                     return (
-                        <div>
-                            <ListGroupItem className="category-header">{category._id.category}</ListGroupItem>
+                        <div className="container">
+                            <div className="row">
+                            <ListGroupItem color="dark" className="category-header col-12">{category._id}</ListGroupItem>
                             {
                                 category.items.map(item => {
                                 return ( 
-                                    <ListGroup>
+                                    <ListGroup className="col-12 col-lg-6 p-0">
                                         <TransitionGroup className="grocery-list">
                                             <CSSTransition key={item.id} timeout={500} classNames="fade">
                                             <ListGroupItem>
-                                                <Button
-                                                    className="remove-btn px-1 py-0 me-2"
-                                                    color="danger"
-                                                    onClick={() => {
-                                                        dispatch(removeItem(item.id));
-                                                    }}
-                                                    >
-                                                        x
-                                                    </Button>
+                                                <div className="item-container">
+                                                    <div className="incremenent-buttons-counter">
+                                                        <div className="increment-buttons-container">
+                                                            <Button
+                                                                className="increment-buttons"
+                                                                color="success"
+                                                                onClick={() => {
+                                                                    dispatch(updateItem({
+                                                                        name: item.name,
+                                                                        category: item.category,
+                                                                        count: 1
+                                                                    }));
+                                                                }}
+                                                                >
+                                                                    +
+                                                            </Button>
+                                                            <Button
+                                                                className="increment-buttons"
+                                                                color="warning"
+                                                                onClick={() => {
+                                                                    dispatch(updateItem({
+                                                                        name: item.name,
+                                                                        category: item.category,
+                                                                        count: -1
+                                                                    }));
+                                                                }}
+                                                                >
+                                                                    -
+                                                            </Button>
+                                                        </div>
+                                                        <div className="item-count">
+                                                            {item.count}
+                                                        </div>
+                                                    </div>
+                                                    {item.name}
                                                     <Button
-                                                    className="add-btn px-1 py-0 me-2"
-                                                    color="success"
-                                                    onClick={() => {
-                                                        dispatch(addItem(item.name));
-                                                    }}
-                                                    >
-                                                        +
+                                                        className="remove-btn"
+                                                        color="danger"
+                                                        >
+                                                            X
                                                     </Button>
-                                                {item.name}
+                                                </div>
                                                 </ListGroupItem>
                                             </CSSTransition>
                                         </TransitionGroup>
@@ -65,6 +89,7 @@ function ShoppingList() {
                                 )
                                 })
                             }
+                            </div>
                         </div>
                     )
                 })

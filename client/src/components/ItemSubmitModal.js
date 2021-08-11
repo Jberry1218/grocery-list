@@ -10,19 +10,25 @@ import {
     Input
 } from "reactstrap";
 import { useDispatch } from "react-redux";
-import { addItem } from "../redux/slices/itemsSlice";
+/*import { addItem } from "../redux/slices/itemsSlice";*/
 
 function ItemSubmitModal() {
 
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
-    const [itemInput, changeItemInput] = useState("");
+    const [nameInput, changeNameInput] = useState("");
+    const [categoryInput, changeCategoryInput] = useState("");
+    const [countInput, changeCountInput] = useState("");
 
     const dispatch = useDispatch();
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(addItem(itemInput));
+        /*dispatch(addItem({
+            name: nameInput,
+            category: categoryInput,
+            count: countInput
+        }));*/
         toggle();
     }
 
@@ -33,7 +39,7 @@ function ItemSubmitModal() {
                 className="mb-3"
                 onClick={toggle}
             >
-                Add Item
+                Add New Item
             </Button>
             <Modal
                 isOpen={modal}
@@ -51,14 +57,33 @@ function ItemSubmitModal() {
                 <ModalBody>
                     <Form onSubmit={handleSubmit}>
                         <FormGroup row className="mt-1">
-                            <Label for="item" sm={2}>Item:</Label>
+                            <Label for="name" sm={2}>Name:</Label>
                             <Col sm={10}>
                                 <Input 
                                     type="text"
                                     name="name"
-                                    id="item"
-                                    placeholder="ex: Bananas, Apples, etc."
-                                    onChange={e => changeItemInput(e.target.value)}
+                                    id="name"
+                                    placeholder="Bananas, Apples, ..."
+                                    onChange={e => changeNameInput(e.target.value)}
+                                />
+                            </Col>
+                            <Label for="category" sm={2}>Category:</Label>
+                            <Col sm={10}>
+                                <Input 
+                                    type="text"
+                                    name="category"
+                                    id="category"
+                                    placeholder="Produce, Frozen Foods, ..."
+                                    onChange={e => changeCategoryInput(e.target.value)}
+                                />
+                            </Col>
+                            <Label for="count" sm={2}>Count:</Label>
+                            <Col sm={10}>
+                                <Input 
+                                    type="number"
+                                    name="count"
+                                    id="count"
+                                    onChange={e => changeCountInput(e.target.value)}
                                 />
                             </Col>
                             <Button

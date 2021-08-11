@@ -1,3 +1,4 @@
+const { request } = require("express");
 const express = require("express");
 const router = express.Router();
 
@@ -7,10 +8,18 @@ const Item = require("../../models/Item");
 // @route   GET api/items
 // @desc    Get all items
 router.get("/", (req, res) => {
+    /*
     let pipeline = [
         {  $group: 
             {   _id: { category: "$category" }, 
-                items: { $push: { name: "$name", id: "$_id" } }
+                items: { $push: { name: "$name", id: "$_id", category: "$category", count: "$count" } }
+            }
+        }
+    ];*/
+    let pipeline = [
+        {  $group: 
+            {   _id: "$category", 
+                items: { $push: { name: "$name", id: "$_id", category: "$category", count: "$count" } }
             }
         }
     ];
@@ -18,15 +27,13 @@ router.get("/", (req, res) => {
         .then(items => res.json(items));
 });
 
-// @route   Post api/items
+// @route   POST api/items
 // @desc    Create an item
 router.post("/", (req, res) => {
-    const newItem = new Item({
-        name: req.body.name,
-        category: req.body.category,
-        count: req.body.count
+    Item.findOneAndUpdate({ name: req.body.name }, {$inc : {count : req.body.count }}, { new: true }, (err, upd) => {
+        if (err) return res.status(404).json({itemAdded: false});
+        res.json(upd)
     });
-    newItem.save().then(item => res.json(item));
 });
 
 // @route   DELETE api/items/:id
@@ -36,7 +43,7 @@ router.delete("/:id", (req, res) => {
         .then(item => item.remove()
             .then(() => res.json({deleted: true}))
         )
-        .catch(err => res.status(404).json({deleted: false}));
+        .catch(err => res.status(404).json({itemDeleted: false}));
 })
 
 
