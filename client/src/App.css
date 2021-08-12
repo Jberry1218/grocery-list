@@ -1,7 +1,11 @@
+.navbar-item:hover {
+    background-color: #292b2c;
+}
+
 .category-header {
     background-color: #292b2c;
     color: white;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 }
 
 .item-container {
@@ -9,7 +13,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     text-align: center;
 }
 
@@ -17,6 +21,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-right: 5px;
 }
 
 .increment-buttons-container {
@@ -40,20 +45,24 @@
     margin-left: 10px;
 }
 
-.fade-enter {
-    opacity: 0;
+.found-rem {
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
 }
 
-.fade-enter-active {
-    opacity: 1;
-    transition: opacity 1000ms ease-in;
+.found {
+    background-color: lightgrey;
 }
 
-.fade-exit {
-    opacity: 1;
+.not-found {
+    background-color: white;
 }
 
-.fade-exit-active {
-    opacity: 0;
-    transition: opacity 1000ms ease-in;
+.visible {
+    display: block;
+}
+
+.hidden {
+    display: none;
 }

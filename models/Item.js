@@ -17,7 +17,13 @@ const ItemSchema = new Schema({
     },
     date: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        required: true
+    },
+    found: {
+        type: Boolean,
+        default: false,
+        required: true
     }
 });
 

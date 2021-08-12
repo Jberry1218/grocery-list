@@ -9,13 +9,21 @@ import {
     Label,
     Input
 } from "reactstrap";
-import { useDispatch } from "react-redux";
-/*import { addItem } from "../redux/slices/itemsSlice";*/
+import { useSelector, useDispatch } from "react-redux";
+import { addItem } from "../redux/slices/itemsSlice";
 
 function ItemSubmitModal() {
 
+    const itemsList = useSelector(state => state.itemsList.itemsList);
+    console.log(itemsList);
+
     const [modal, setModal] = useState(false);
-    const toggle = () => setModal(!modal);
+    const toggleModal = () => {
+        setModal(!modal);
+        if (modal) {
+            window.location.reload();
+        }
+    }
 
     const [nameInput, changeNameInput] = useState("");
     const [categoryInput, changeCategoryInput] = useState("");
@@ -24,26 +32,27 @@ function ItemSubmitModal() {
     const dispatch = useDispatch();
     const handleSubmit = (e) => {
         e.preventDefault();
-        /*dispatch(addItem({
+        dispatch(addItem({
             name: nameInput,
-            category: categoryInput,
+            category: categoryInput.toLowerCase(),
             count: countInput
-        }));*/
-        toggle();
+        }));
+        document.getElementById("item-form").reset();
     }
 
     return (
         <div>
             <Button
                 color="dark"
-                className="mb-3"
-                onClick={toggle}
+                className="mb-0"
+                onClick={toggleModal}
             >
                 Add New Item
             </Button>
             <Modal
                 isOpen={modal}
-                toggle={toggle}
+                toggle={toggleModal}
+                animation={false}
             >
                 <div className="modal-header">
                     <h5 className="modal-title">
@@ -51,11 +60,11 @@ function ItemSubmitModal() {
                     </h5>
                     <button
                         className="btn-close"
-                        onClick={toggle}
+                        onClick={toggleModal}
                     />
                 </div>
                 <ModalBody>
-                    <Form onSubmit={handleSubmit}>
+                    <Form id="item-form" onSubmit={handleSubmit}>
                         <FormGroup row className="mt-1">
                             <Label for="name" sm={2}>Name:</Label>
                             <Col sm={10}>
@@ -63,7 +72,9 @@ function ItemSubmitModal() {
                                     type="text"
                                     name="name"
                                     id="name"
-                                    placeholder="Bananas, Apples, ..."
+                                    placeholder="ex: Banana"
+                                    autocomplete="off"
+                                    required
                                     onChange={e => changeNameInput(e.target.value)}
                                 />
                             </Col>
@@ -73,9 +84,17 @@ function ItemSubmitModal() {
                                     type="text"
                                     name="category"
                                     id="category"
-                                    placeholder="Produce, Frozen Foods, ..."
+                                    placeholder="ex: Produce"
+                                    autocomplete="off"
+                                    list="categories"
+                                    required
                                     onChange={e => changeCategoryInput(e.target.value)}
                                 />
+                                <datalist id="categories">
+                                    {itemsList.map(category => {
+                                        return <option key={category._id}>{category._id[0].toUpperCase() + category._id.slice(1)}</option>
+                                    })}
+                                </datalist>
                             </Col>
                             <Label for="count" sm={2}>Count:</Label>
                             <Col sm={10}>
@@ -83,6 +102,8 @@ function ItemSubmitModal() {
                                     type="number"
                                     name="count"
                                     id="count"
+                                    autocomplete="off"
+                                    required
                                     onChange={e => changeCountInput(e.target.value)}
                                 />
                             </Col>

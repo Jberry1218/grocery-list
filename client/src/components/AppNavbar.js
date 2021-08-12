@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import ItemSubmitModal from "./ItemSubmitModal";
 import {
+    Button,
     Collapse,
     Navbar,
     NavbarToggler,
@@ -8,10 +10,14 @@ import {
     NavItem,
     NavLink
 } from "reactstrap";
+import { useDispatch } from "react-redux";
+import { toggleShopping } from "../redux/slices/itemsSlice";
 
 function AppNavbar() {
 
     const [isOpen, toggleOpen] = useState(false);
+
+    const dispatch = useDispatch();
 
     return (
         <div>
@@ -31,14 +37,15 @@ function AppNavbar() {
                     </Nav>
                     <Nav className="ms-auto" navbar>
                         <NavItem className="ml-auto">
-                            <NavLink href="/">
-                                Build List
-                            </NavLink>
+                            <ItemSubmitModal />
                         </NavItem>
                         <NavItem className="ml-auto">
-                            <NavLink href="/">
-                                View Lists
-                            </NavLink>
+                            <Button 
+                                color="dark"
+                                onClick={() => dispatch(toggleShopping())}
+                            >
+                                Shopping Mode
+                            </Button>
                         </NavItem>
                     </Nav>
                 </Collapse>

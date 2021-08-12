@@ -1,6 +1,5 @@
 import AppNavbar from "./components/AppNavbar";
 import ShoppingList from "./components/ShoppingList";
-import ItemSubmitModal from "./components/ItemSubmitModal";
 import { Container } from "reactstrap";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,8 +10,7 @@ function App() {
   return (
     <div className="App">
       <AppNavbar />
-      <Container>
-        <ItemSubmitModal />
+      <Container >
         <ShoppingList />
       </Container>
     </div>
