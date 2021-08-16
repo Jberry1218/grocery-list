@@ -9,34 +9,32 @@ import {
     Label,
     Input
 } from "reactstrap";
-import { useSelector, useDispatch } from "react-redux";
-import { addItem } from "../redux/slices/itemsSlice";
+import { PlusCircleIcon } from "@heroicons/react/solid";
+import { connect } from "react-redux";
+import PropTypes from "prop-types"; 
+import { addItem } from "../actions/itemsActions";
 
-function ItemSubmitModal() {
+function ItemSubmitModal(props) {
 
-    const itemsList = useSelector(state => state.itemsList.itemsList);
-    console.log(itemsList);
+    const itemsList = props.itemsList.itemsList;
+    const shoppingMode = props.itemsList.shoppingMode;
 
     const [modal, setModal] = useState(false);
     const toggleModal = () => {
         setModal(!modal);
-        if (modal) {
-            window.location.reload();
-        }
     }
 
     const [nameInput, changeNameInput] = useState("");
     const [categoryInput, changeCategoryInput] = useState("");
     const [countInput, changeCountInput] = useState("");
 
-    const dispatch = useDispatch();
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(addItem({
+        props.addItem({
             name: nameInput,
             category: categoryInput.toLowerCase(),
             count: countInput
-        }));
+        });
         document.getElementById("item-form").reset();
     }
 
@@ -44,9 +42,10 @@ function ItemSubmitModal() {
         <div>
             <Button
                 color="dark"
-                className="mb-0"
+                className={shoppingMode ? "action-button hidden" : "action-button visible"}
                 onClick={toggleModal}
             >
+                <PlusCircleIcon className="button-icon"/>
                 Add New Item
             </Button>
             <Modal
@@ -72,7 +71,6 @@ function ItemSubmitModal() {
                                     type="text"
                                     name="name"
                                     id="name"
-                                    placeholder="ex: Banana"
                                     autocomplete="off"
                                     required
                                     onChange={e => changeNameInput(e.target.value)}
@@ -84,7 +82,6 @@ function ItemSubmitModal() {
                                     type="text"
                                     name="category"
                                     id="category"
-                                    placeholder="ex: Produce"
                                     autocomplete="off"
                                     list="categories"
                                     required
@@ -121,4 +118,13 @@ function ItemSubmitModal() {
     )
 }
 
-export default ItemSubmitModal;
+ItemSubmitModal.propTypes = {
+    itemsList: PropTypes.object.isRequired,
+    addItem: PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => ({
+    itemsList: state.itemsList
+});
+
+export default connect(mapStateToProps, { addItem })(ItemSubmitModal);

@@ -2,6 +2,23 @@
     background-color: #292b2c;
 }
 
+.action-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.action-button {
+    border-radius: 10px;
+}
+
+.button-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+
 .category-header {
     background-color: #292b2c;
     color: white;

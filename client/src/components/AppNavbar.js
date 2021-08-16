@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ItemSubmitModal from "./ItemSubmitModal";
 import {
     Button,
     Collapse,
@@ -10,14 +9,13 @@ import {
     NavItem,
     NavLink
 } from "reactstrap";
-import { useDispatch } from "react-redux";
-import { toggleShopping } from "../redux/slices/itemsSlice";
+import { connect } from "react-redux";
+import PropTypes from "prop-types"; 
+import { toggleShoppingMode } from "../actions/itemsActions";
 
-function AppNavbar() {
+function AppNavbar(props) {
 
     const [isOpen, toggleOpen] = useState(false);
-
-    const dispatch = useDispatch();
 
     return (
         <div>
@@ -37,12 +35,9 @@ function AppNavbar() {
                     </Nav>
                     <Nav className="ms-auto" navbar>
                         <NavItem className="ml-auto">
-                            <ItemSubmitModal />
-                        </NavItem>
-                        <NavItem className="ml-auto">
                             <Button 
                                 color="dark"
-                                onClick={() => dispatch(toggleShopping())}
+                                onClick={() => props.toggleShoppingMode()}
                             >
                                 Shopping Mode
                             </Button>
@@ -54,4 +49,10 @@ function AppNavbar() {
     );
 }
 
-export default AppNavbar;
+AppNavbar.propTypes = {
+    toggleShopping: PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => ({});
+
+export default connect(mapStateToProps, { toggleShoppingMode })(AppNavbar);

@@ -5,31 +5,23 @@ import {
     ListGroupItem,
     Button
 } from "reactstrap";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchItems, updateItem, deleteItem, foundItem, foundReset } from "../redux/slices/itemsSlice";
+import { connect } from "react-redux";
+import PropTypes from "prop-types"; 
+import { getItems, updateItem, deleteItem, foundItem, resetFoundItems } from "../actions/itemsActions";
 
 
-function ShoppingList() {
 
-    const dispatch = useDispatch();
-    const itemsList = useSelector(state => state.itemsList.itemsList);
-    const shoppingMode = useSelector(state => state.itemsList.shoppingMode);
-    const itemsStatus = useSelector(state => state.itemsList.status);
+function ShoppingList(props) {
     
     useEffect(() => {
-        if (itemsStatus === 'idle') {
-          dispatch(fetchItems());
-        }
-    }, [itemsStatus, dispatch])
+        props.getItems();
+    }, []);
+
+    const itemsList = props.itemsList.itemsList;
+    const shoppingMode = props.itemsList.shoppingMode;
 
     return (
         <Container className="mb-5">
-            <Button 
-                onClick={() => dispatch(foundReset())}
-                className={shoppingMode ? "hidden" : "visible"}
-            >
-                Reset Found
-            </Button>
             {itemsList.map(category => {
                     return (
                         <div className="container">
@@ -52,10 +44,10 @@ function ShoppingList() {
                                                             className="increment-buttons"
                                                             color="success"
                                                             onClick={() => {
-                                                                dispatch(updateItem({
+                                                                props.updateItem({
                                                                     id: item.id,
                                                                     count: 1
-                                                                }));
+                                                                });
                                                             }}
                                                             >
                                                                 +
@@ -64,10 +56,10 @@ function ShoppingList() {
                                                             className="increment-buttons"
                                                             color="warning"
                                                             onClick={() => {
-                                                                dispatch(updateItem({
+                                                                props.updateItem({
                                                                     id: item.id,
                                                                     count: -1
-                                                                }));
+                                                                });
                                                             }}
                                                             >
                                                                 -
@@ -81,10 +73,10 @@ function ShoppingList() {
                                                 <Button
                                                     color="secondary"
                                                     onClick={() => {
-                                                        dispatch(foundItem({
+                                                        props.foundItem({
                                                             id: item.id,
                                                             found: item.found
-                                                        }));
+                                                        });
                                                     }}
                                                     className={shoppingMode ? "found-rem visible" : "found-rem hidden"}
                                                     >
@@ -93,11 +85,11 @@ function ShoppingList() {
                                                 <Button
                                                     color="danger"
                                                     onClick={() => {
-                                                        dispatch(deleteItem({
+                                                        props.deleteItem({
                                                             id: item.id,
                                                             name: item.name,
                                                             category: item.category
-                                                        }));
+                                                        });
                                                     }}
                                                     className={shoppingMode ? "found-rem hidden" : "found-rem visible"}
                                                     >
@@ -118,4 +110,21 @@ function ShoppingList() {
     );
 }
 
-export default ShoppingList;
+ShoppingList.propTypes = {
+    itemsList: PropTypes.object.isRequired,
+    getItems: PropTypes.func.isRequired,
+    updateItem: PropTypes.func.isRequired,
+    deleteItem: PropTypes.func.isRequired,
+    foundItem: PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => ({
+    itemsList: state.itemsList
+});
+
+export default connect(mapStateToProps, {
+    getItems,
+    updateItem,
+    deleteItem, 
+    foundItem
+})(ShoppingList);
