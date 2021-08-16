@@ -14,6 +14,7 @@ router.get("/", auth, (req, res) => {
     User.findById(req.user.id)
         .select("-password")
         .then(user => res.json())
+        .catch(err => res.status(401).json({ msg: "Authentication denied" }))
 });
 
 // @route   POST api/users
