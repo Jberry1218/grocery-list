@@ -1,8 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const config = require("config");
 
 // Include API routes
-const items = require("./routes/api/items")
+const items = require("./routes/api/items");
+const user = require("./routes/api/users");
 
 // Initialize express app
 const app = express();
@@ -12,11 +14,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // Import MongoDB
-const db = require("./config/keys").mongoURI;
+const db = config.get("mongoURI");
 
 // Connect to MongoDB
 mongoose
-    .connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+    .connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
     .then(() => console.log("Database connected"))
     .catch(err => console.error(err))
 

@@ -1,6 +1,7 @@
 const { request } = require("express");
 const express = require("express");
 const router = express.Router();
+const auth = require("../../middleware/auth");
 
 // Item model
 const Item = require("../../models/Item");
@@ -36,7 +37,7 @@ router.put("/update", (req, res) => {
 
 // @route   DELETE api/items/delete
 // @desc    Delete an item
-router.delete("/delete", (req, res) => {
+router.delete("/delete", auth, (req, res) => {
     Item.findById(req.body.id)
         .then(item => item.remove()
             .then(() => res.json(req.body))

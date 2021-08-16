@@ -7,9 +7,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types"; 
-import { getItems, updateItem, deleteItem, foundItem, resetFoundItems } from "../actions/itemsActions";
-
-
+import { getItems, updateItem, deleteItem, foundItem } from "../actions/itemsActions";
 
 function ShoppingList(props) {
     
