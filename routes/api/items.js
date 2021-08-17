@@ -8,7 +8,7 @@ const Item = require("../../models/Item");
 
 // @route   GET api/items
 // @desc    Get all items
-router.get("/", (req, res) => {
+router.get("/", auth, (req, res) => {
     let pipeline = [
         {
             $sort: { name: 1 }
@@ -37,7 +37,7 @@ router.put("/update", (req, res) => {
 
 // @route   DELETE api/items/delete
 // @desc    Delete an item
-router.delete("/delete", auth, (req, res) => {
+router.delete("/delete", (req, res) => {
     Item.findById(req.body.id)
         .then(item => item.remove()
             .then(() => res.json(req.body))

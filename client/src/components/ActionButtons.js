@@ -14,25 +14,29 @@ function ActionButtons(props) {
     const shoppingMode = props.itemsList.shoppingMode;
 
     return (
-        <Container className="action-button-container">
-            <ItemSubmitModal />
-            <Button 
-                onClick={() => props.resetFoundItems()}
-                className={shoppingMode ? "action-button hidden" : "action-button visible"}
-            >
-                <EyeIcon className="button-icon"/>
-                Reset Found
-            </Button>
-        </Container>
+        <div className={props.isAuthenticated ? "visible" : "hidden"}>
+            <Container className="action-button-container">
+                <ItemSubmitModal />
+                <Button 
+                    onClick={() => props.resetFoundItems()}
+                    className={shoppingMode ? "action-button hidden" : "action-button visible"}
+                >
+                    <EyeIcon className="button-icon"/>
+                    Reset Found
+                </Button>
+            </Container>
+        </div>
     );
 }
 
 ActionButtons.propTypes = {
-    resetFoundItems: PropTypes.func.isRequired
+    resetFoundItems: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool
 }
 
 const mapStateToProps = (state) => ({
-    itemsList: state.itemsList
+    itemsList: state.itemsList,
+    isAuthenticated: state.users.isAuthenticated
 });
 
 export default connect(mapStateToProps, { resetFoundItems })(ActionButtons);

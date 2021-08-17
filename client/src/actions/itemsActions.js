@@ -1,7 +1,7 @@
 import axios from "axios";
 import { 
-    GET_ITEMS,
     ITEMS_LOADING,
+    ITEMS_LOADED,
     UPDATE_ITEM,
     ADD_ITEM,
     DELETE_ITEM,
@@ -9,15 +9,20 @@ import {
     RESET_FOUND_ITEMS,
     TOGGLE_SHOPPING_MODE
 } from "./types";
+import { tokenConfig } from "./usersActions";
+import { returnErrors } from "./errorsActions";
 
-export const getItems = () => dispatch => {
+export const getItems = () => (dispatch, getState) => {
     dispatch(itemsLoading());
-    axios.get("/api/items")
+    axios.get("/api/items", tokenConfig(getState))
         .then(res => 
             dispatch({
-                type: GET_ITEMS,
+                type: ITEMS_LOADED,
                 payload: res.data
             })
+        )
+        .catch(err =>
+            dispatch(returnErrors(err.response.data, err.response.status))
         )
 }
 
@@ -35,6 +40,9 @@ export const updateItem = item => dispatch => {
                 payload: res.data
             })
         )
+        .catch(err =>
+            dispatch(returnErrors(err.response.data, err.response.status))
+        )
 }
 
 export const addItem = item => dispatch => {
@@ -44,6 +52,9 @@ export const addItem = item => dispatch => {
                 type: ADD_ITEM,
                 payload: res.data
             })
+        )
+        .catch(err =>
+            dispatch(returnErrors(err.response.data, err.response.status))
         )
 }
 
@@ -55,6 +66,9 @@ export const deleteItem = item => dispatch => {
                 payload: res.data
             })
         )
+        .catch(err =>
+            dispatch(returnErrors(err.response.data, err.response.status))
+        )
 }
 
 export const foundItem = item => dispatch => {
@@ -65,6 +79,9 @@ export const foundItem = item => dispatch => {
                 payload: res.data
             })
         )
+        .catch(err =>
+            dispatch(returnErrors(err.response.data, err.response.status))
+        )
 }
 
 export const resetFoundItems = () => dispatch => {
@@ -74,6 +91,9 @@ export const resetFoundItems = () => dispatch => {
                 type: RESET_FOUND_ITEMS,
                 payload: res.data
             })
+        )
+        .catch(err =>
+            dispatch(returnErrors(err.response.data, err.response.status))
         )
 }
 

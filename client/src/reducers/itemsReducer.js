@@ -1,6 +1,6 @@
 import { 
-    GET_ITEMS,
     ITEMS_LOADING,
+    ITEMS_LOADED,
     UPDATE_ITEM,
     ADD_ITEM,
     DELETE_ITEM,
@@ -37,16 +37,16 @@ let findIndex = (state, category, item) => {
 
 export default function(state = initialState, action) {
     switch (action.type) {
-        case GET_ITEMS:
-            return {
-                ...state,
-                itemsList: action.payload,
-                loading: false
-            }
         case ITEMS_LOADING:
             return {
                 ...state,
                 loading: true
+            }
+        case ITEMS_LOADED:
+            return {
+                ...state,
+                itemsList: action.payload,
+                loading: false
             }
         case UPDATE_ITEM: {
             let [ catInd, itInd ] = findIndex(state, action.payload.category, action.payload.name);

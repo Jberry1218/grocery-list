@@ -44,7 +44,7 @@ function ItemSubmitModal(props) {
                 color="dark"
                 className={shoppingMode ? "action-button hidden" : "action-button visible"}
                 onClick={toggleModal}
-            >
+            >   
                 <PlusCircleIcon className="button-icon"/>
                 Add New Item
             </Button>
@@ -65,24 +65,24 @@ function ItemSubmitModal(props) {
                 <ModalBody>
                     <Form id="item-form" onSubmit={handleSubmit}>
                         <FormGroup row className="mt-1">
-                            <Label for="name" sm={2}>Name:</Label>
-                            <Col sm={10}>
+                            <Label for="name" sm={3}>Name:</Label>
+                            <Col sm={9} className="mb-2">
                                 <Input 
                                     type="text"
                                     name="name"
                                     id="name"
-                                    autocomplete="off"
+                                    autoComplete="off"
                                     required
                                     onChange={e => changeNameInput(e.target.value)}
                                 />
                             </Col>
-                            <Label for="category" sm={2}>Category:</Label>
-                            <Col sm={10}>
+                            <Label for="category" sm={3}>Category:</Label>
+                            <Col sm={9} className="mb-2">
                                 <Input 
                                     type="text"
                                     name="category"
                                     id="category"
-                                    autocomplete="off"
+                                    autoComplete="off"
                                     list="categories"
                                     required
                                     onChange={e => changeCategoryInput(e.target.value)}
@@ -93,13 +93,13 @@ function ItemSubmitModal(props) {
                                     })}
                                 </datalist>
                             </Col>
-                            <Label for="count" sm={2}>Count:</Label>
-                            <Col sm={10}>
+                            <Label for="count" sm={3}>Count:</Label>
+                            <Col sm={9} className="mb-2">
                                 <Input 
                                     type="number"
                                     name="count"
                                     id="count"
-                                    autocomplete="off"
+                                    autoComplete="off"
                                     required
                                     onChange={e => changeCountInput(e.target.value)}
                                 />

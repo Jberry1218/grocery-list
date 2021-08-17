@@ -13,7 +13,7 @@ const User = require("../../models/User");
 router.get("/", auth, (req, res) => {
     User.findById(req.user.id)
         .select("-password")
-        .then(user => res.json())
+        .then(user => res.json(user))
         .catch(err => res.status(401).json({ msg: "Authentication denied" }))
 });
 

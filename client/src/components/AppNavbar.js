@@ -12,6 +12,9 @@ import {
 import { connect } from "react-redux";
 import PropTypes from "prop-types"; 
 import { toggleShoppingMode } from "../actions/itemsActions";
+import RegisterModal from "./RegisterModal";
+import LoginModal from "./LoginModal";
+import Logout from "./Logout";
 
 function AppNavbar(props) {
 
@@ -22,25 +25,29 @@ function AppNavbar(props) {
             <Navbar color="dark" dark expand="md" className="mb-3 px-3">
                 <NavbarBrand href="/">
                     <img src={process.env.PUBLIC_URL + "/groceries.png"} alt="logo" className="me-2" style={{width: "30px"}}/> 
-                    GroceryList
+                    {props.user ? props.user.firstName+"'s Grocery List" : "Grocery List"}
                 </NavbarBrand>
                 <NavbarToggler onClick={() => toggleOpen(!isOpen)} />
                 <Collapse isOpen={ isOpen } navbar>
                     <Nav navbar>
-                        <NavItem className="ml-auto">
-                            <NavLink href="/">
-                                Logout
-                            </NavLink>
+                        <NavItem>
+                            <RegisterModal />
+                        </NavItem>
+                        <NavItem>
+                            <LoginModal />
+                        </NavItem>
+                        <NavItem>
+                            <Logout />
                         </NavItem>
                     </Nav>
                     <Nav className="ms-auto" navbar>
-                        <NavItem className="ml-auto">
-                            <Button 
-                                color="dark"
+                        <NavItem className={props.isAuthenticated ? "ml-auto visible" : "hidden"}>
+                            <NavLink 
+                                href="#"
                                 onClick={() => props.toggleShoppingMode()}
                             >
                                 Shopping Mode
-                            </Button>
+                            </NavLink>
                         </NavItem>
                     </Nav>
                 </Collapse>
@@ -50,9 +57,14 @@ function AppNavbar(props) {
 }
 
 AppNavbar.propTypes = {
-    toggleShopping: PropTypes.func.isRequired
+    toggleShopping: PropTypes.func.isRequired,
+    firstName: PropTypes.string,
+    isAuthenticated: PropTypes.bool,
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+    user: state.users.user,
+    isAuthenticated: state.users.isAuthenticated
+});
 
 export default connect(mapStateToProps, { toggleShoppingMode })(AppNavbar);
