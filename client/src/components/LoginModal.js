@@ -12,7 +12,6 @@ import {
     Input
 } from "reactstrap";
 import { connect } from "react-redux";
-import PropTypes from "prop-types"; 
 import { login } from "../actions/usersActions";
 import { clearErrors } from "../actions/errorsActions";
 
@@ -111,13 +110,6 @@ function LoginModal(props) {
             </Modal>
         </div>
     )
-}
-
-LoginModal.propTypes = {
-    isAuthenticated: PropTypes.bool,
-    error: PropTypes.object.isRequired,
-    login: PropTypes.func.isRequired,
-    clearErrors: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({

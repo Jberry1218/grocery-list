@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-    Button,
     Collapse,
     Navbar,
     NavbarToggler,
@@ -10,7 +9,6 @@ import {
     NavLink
 } from "reactstrap";
 import { connect } from "react-redux";
-import PropTypes from "prop-types"; 
 import { toggleShoppingMode } from "../actions/itemsActions";
 import RegisterModal from "./RegisterModal";
 import LoginModal from "./LoginModal";
@@ -54,12 +52,6 @@ function AppNavbar(props) {
             </Navbar>
         </div>
     );
-}
-
-AppNavbar.propTypes = {
-    toggleShopping: PropTypes.func.isRequired,
-    firstName: PropTypes.string,
-    isAuthenticated: PropTypes.bool,
 }
 
 const mapStateToProps = (state) => ({

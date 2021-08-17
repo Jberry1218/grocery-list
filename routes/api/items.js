@@ -9,18 +9,17 @@ const Item = require("../../models/Item");
 // @route   GET api/items
 // @desc    Get all items
 router.get("/", auth, (req, res) => {
+    console.log(req.params.userId)
+    console.log("here")
     let pipeline = [
-        {
-            $sort: { name: 1 }
-        },
+        { $sort: { name: 1 } },
+        { $match: { userId: req.query.userId } },
         {  $group: 
             {   _id: "$category", 
-                items: { $push: { name: "$name", id: "$_id", category: "$category", count: "$count", found: "$found" } }
+                items: { $push: { name: "$name", id: "$_id", category: "$category", count: "$count", found: "$found", userId: "$userId" } }
             }
         },
-        {
-            $sort: { _id: 1 }
-        }
+        { $sort: { _id: 1 } }
     ];
     Item.aggregate(pipeline)
         .then(items => res.json(items));
@@ -48,11 +47,11 @@ router.delete("/delete", (req, res) => {
 // @route   POST api/items/add
 // @desc    Add an item
 router.post("/add", (req, res) => {
-    const item = new Item({name: req.body.name, category: req.body.category, count: req.body.count});
+    const item = new Item({name: req.body.name, category: req.body.category, count: req.body.count, userId: req.body.userId});
     item.save((err, savedItem) => {
-    if (err) return res.status(404).json({itemAdded: false});
-    res.json(savedItem)
-  });
+        if (err) return res.status(404).json({itemAdded: false});
+        res.json(savedItem)
+    });
 });
 
 // @route   POST api/items/found

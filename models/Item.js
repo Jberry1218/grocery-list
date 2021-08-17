@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// Create Schema
 const ItemSchema = new Schema({
     name: {
         type: String,
@@ -23,6 +22,10 @@ const ItemSchema = new Schema({
     found: {
         type: Boolean,
         default: false,
+        required: true
+    },
+    userId: {
+        type: String,
         required: true
     }
 });

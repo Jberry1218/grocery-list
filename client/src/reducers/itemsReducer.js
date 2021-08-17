@@ -6,7 +6,8 @@ import {
     DELETE_ITEM,
     FOUND_ITEM,
     RESET_FOUND_ITEMS,
-    TOGGLE_SHOPPING_MODE
+    TOGGLE_SHOPPING_MODE,
+    CLEAR_ITEMS
 } from "../actions/types";
 
 const initialState = {
@@ -106,6 +107,11 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 shoppingMode: !state.shoppingMode
+            }
+        case CLEAR_ITEMS:
+            return {
+                ...state,
+                itemsList: []
             }
         default:
             return state;

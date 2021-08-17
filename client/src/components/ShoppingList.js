@@ -6,17 +6,24 @@ import {
     Button
 } from "reactstrap";
 import { connect } from "react-redux";
-import PropTypes from "prop-types"; 
-import { getItems, updateItem, deleteItem, foundItem } from "../actions/itemsActions";
+import { getItems, updateItem, deleteItem, foundItem, clearItems } from "../actions/itemsActions";
 
 function ShoppingList(props) {
     
-    useEffect(() => {
-        props.getItems();
-    }, []);
-
     const itemsList = props.itemsList.itemsList;
     const shoppingMode = props.itemsList.shoppingMode;
+
+    useEffect(() => {
+        if (props.user) {
+            props.getItems(props.user._id);
+        }
+    }, [props.user]);
+
+    useEffect(() => {
+        if (!props.isAuthenticated) {
+            props.clearItems();
+        }
+    }, [props.isAuthenticated]);
 
     return (
         <Container className="mb-5">
@@ -108,21 +115,16 @@ function ShoppingList(props) {
     );
 }
 
-ShoppingList.propTypes = {
-    itemsList: PropTypes.object.isRequired,
-    getItems: PropTypes.func.isRequired,
-    updateItem: PropTypes.func.isRequired,
-    deleteItem: PropTypes.func.isRequired,
-    foundItem: PropTypes.func.isRequired
-}
-
 const mapStateToProps = (state) => ({
-    itemsList: state.itemsList
+    itemsList: state.itemsList,
+    user: state.users.user,
+    isAuthenticated: state.users.isAuthenticated
 });
 
 export default connect(mapStateToProps, {
     getItems,
     updateItem,
     deleteItem, 
-    foundItem
+    foundItem,
+    clearItems
 })(ShoppingList);

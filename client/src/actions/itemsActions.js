@@ -7,14 +7,19 @@ import {
     DELETE_ITEM,
     FOUND_ITEM,
     RESET_FOUND_ITEMS,
-    TOGGLE_SHOPPING_MODE
+    TOGGLE_SHOPPING_MODE,
+    CLEAR_ITEMS
 } from "./types";
 import { tokenConfig } from "./usersActions";
 import { returnErrors } from "./errorsActions";
 
-export const getItems = () => (dispatch, getState) => {
+export const getItems = userId => (dispatch, getState) => {
     dispatch(itemsLoading());
-    axios.get("/api/items", tokenConfig(getState))
+    const config = tokenConfig(getState);
+    console.log(userId);
+    config.params = { userId: userId };
+    console.log(config)
+    axios.get("/api/items", config)
         .then(res => 
             dispatch({
                 type: ITEMS_LOADED,
@@ -100,5 +105,11 @@ export const resetFoundItems = () => dispatch => {
 export const toggleShoppingMode = () => {
     return {
         type: TOGGLE_SHOPPING_MODE
+    }
+}
+
+export const clearItems = () => {
+    return {
+        type: CLEAR_ITEMS
     }
 }

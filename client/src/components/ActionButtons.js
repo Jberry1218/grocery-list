@@ -6,7 +6,6 @@ import {
 } from "reactstrap";
 import { EyeIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
-import PropTypes from "prop-types"; 
 import { resetFoundItems } from "../actions/itemsActions";
 
 function ActionButtons(props) {
@@ -27,11 +26,6 @@ function ActionButtons(props) {
             </Container>
         </div>
     );
-}
-
-ActionButtons.propTypes = {
-    resetFoundItems: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
 }
 
 const mapStateToProps = (state) => ({

@@ -11,8 +11,7 @@ import {
     Label,
     Input
 } from "reactstrap";
-import { connect } from "react-redux";
-import PropTypes from "prop-types"; 
+import { connect } from "react-redux"; 
 import { register } from "../actions/usersActions";
 import { clearErrors } from "../actions/errorsActions";
 
@@ -140,13 +139,6 @@ function RegisterModal(props) {
             </Modal>
         </div>
     )
-}
-
-RegisterModal.propTypes = {
-    isAuthenticated: PropTypes.bool,
-    error: PropTypes.object.isRequired,
-    register: PropTypes.func.isRequired,
-    clearErrors: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({

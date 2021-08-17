@@ -11,7 +11,6 @@ import {
 } from "reactstrap";
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
-import PropTypes from "prop-types"; 
 import { addItem } from "../actions/itemsActions";
 
 function ItemSubmitModal(props) {
@@ -33,7 +32,8 @@ function ItemSubmitModal(props) {
         props.addItem({
             name: nameInput,
             category: categoryInput.toLowerCase(),
-            count: countInput
+            count: countInput,
+            userId: props.user._id
         });
         document.getElementById("item-form").reset();
     }
@@ -118,13 +118,9 @@ function ItemSubmitModal(props) {
     )
 }
 
-ItemSubmitModal.propTypes = {
-    itemsList: PropTypes.object.isRequired,
-    addItem: PropTypes.func.isRequired
-}
-
 const mapStateToProps = (state) => ({
-    itemsList: state.itemsList
+    itemsList: state.itemsList,
+    user: state.users.user
 });
 
 export default connect(mapStateToProps, { addItem })(ItemSubmitModal);

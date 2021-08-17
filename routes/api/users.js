@@ -53,7 +53,7 @@ router.post("/register", (req, res) => {
                                     res.json({
                                         token: tok,
                                         user: {
-                                            id: user.id,
+                                            _id: user.id,
                                             firstName: user.firstName,
                                             lastName: user.lastName,
                                             email: user.email
@@ -91,7 +91,7 @@ router.post("/login", (req, res) => {
                             res.json({
                                 token: tok,
                                 user: {
-                                    id: user.id,
+                                    _id: user.id,
                                     firstName: user.firstName,
                                     lastName: user.lastName,
                                     email: user.email
