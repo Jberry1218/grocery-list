@@ -12,8 +12,8 @@ import {
     Input
 } from "reactstrap";
 import { connect } from "react-redux"; 
-import { register } from "../actions/usersActions";
-import { clearErrors } from "../actions/errorsActions";
+import { register } from "../../actions/usersActions";
+import { clearErrors } from "../../actions/errorsActions";
 
 function RegisterModal(props) {
 

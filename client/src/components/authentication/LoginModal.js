@@ -12,8 +12,8 @@ import {
     Input
 } from "reactstrap";
 import { connect } from "react-redux";
-import { login } from "../actions/usersActions";
-import { clearErrors } from "../actions/errorsActions";
+import { login } from "../../actions/usersActions";
+import { clearErrors } from "../../actions/errorsActions";
 
 function LoginModal(props) {
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "reactstrap";
 import { connect } from "react-redux";
-import { logout } from "../actions/usersActions";
+import { logout } from "../../actions/usersActions";
 
 function Logout(props) {
     return (

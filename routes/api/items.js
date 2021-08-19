@@ -1,4 +1,3 @@
-const { request } = require("express");
 const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
@@ -9,8 +8,6 @@ const Item = require("../../models/Item");
 // @route   GET api/items
 // @desc    Get all items
 router.get("/", auth, (req, res) => {
-    console.log(req.params.userId)
-    console.log("here")
     let pipeline = [
         { $sort: { name: 1 } },
         { $match: { userId: req.query.userId } },

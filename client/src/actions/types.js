@@ -22,3 +22,7 @@ export const REGISTER_FAIL = "REGISTER FAIL";
 // Error actions
 export const GET_ERRORS = "GET_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
+
+// Page actions
+export const PAGE_LOADING = "PAGE_LOADING";
+export const PAGE_LOADED = "PAGE_LOADED";

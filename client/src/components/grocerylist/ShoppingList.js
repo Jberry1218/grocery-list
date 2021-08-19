@@ -6,12 +6,12 @@ import {
     Button
 } from "reactstrap";
 import { connect } from "react-redux";
-import { getItems, updateItem, deleteItem, foundItem, clearItems } from "../actions/itemsActions";
+import { getItems, updateItem, deleteItem, foundItem, clearItems } from "../../actions/itemsActions";
 
 function ShoppingList(props) {
     
-    const itemsList = props.itemsList.itemsList;
-    const shoppingMode = props.itemsList.shoppingMode;
+    const itemsList = props.items.itemsList;
+    const shoppingMode = props.items.shoppingMode;
 
     useEffect(() => {
         if (props.user) {
@@ -116,7 +116,7 @@ function ShoppingList(props) {
 }
 
 const mapStateToProps = (state) => ({
-    itemsList: state.itemsList,
+    items: state.items,
     user: state.users.user,
     isAuthenticated: state.users.isAuthenticated
 });

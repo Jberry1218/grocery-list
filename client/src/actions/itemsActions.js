@@ -16,9 +16,7 @@ import { returnErrors } from "./errorsActions";
 export const getItems = userId => (dispatch, getState) => {
     dispatch(itemsLoading());
     const config = tokenConfig(getState);
-    console.log(userId);
     config.params = { userId: userId };
-    console.log(config)
     axios.get("/api/items", config)
         .then(res => 
             dispatch({

@@ -11,12 +11,12 @@ import {
 } from "reactstrap";
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
-import { addItem } from "../actions/itemsActions";
+import { addItem } from "../../actions/itemsActions";
 
 function ItemSubmitModal(props) {
 
-    const itemsList = props.itemsList.itemsList;
-    const shoppingMode = props.itemsList.shoppingMode;
+    const itemsList = props.items.itemsList;
+    const shoppingMode = props.items.shoppingMode;
 
     const [modal, setModal] = useState(false);
     const toggleModal = () => {
@@ -42,7 +42,7 @@ function ItemSubmitModal(props) {
         <div>
             <Button
                 color="dark"
-                className={shoppingMode ? "action-button hidden" : "action-button visible"}
+                className={shoppingMode ? "action-button hidden" : "action-button visible mt-3"}
                 onClick={toggleModal}
             >   
                 <PlusCircleIcon className="button-icon"/>
@@ -119,7 +119,7 @@ function ItemSubmitModal(props) {
 }
 
 const mapStateToProps = (state) => ({
-    itemsList: state.itemsList,
+    items: state.items,
     user: state.users.user
 });
 

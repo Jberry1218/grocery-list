@@ -5,6 +5,7 @@ const config = require("config");
 // Include API routes
 const items = require("./routes/api/items");
 const users = require("./routes/api/users");
+const recipes = require("./routes/api/recipes");
 
 // Initialize express app
 const app = express();
@@ -25,6 +26,7 @@ mongoose
 // Use routes
 app.use("/api/items", items);
 app.use("/api/users", users);
+app.use("/api/recipes", recipes);
 
 // Declare port
 const port = process.env.PORT || 5000;

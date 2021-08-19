@@ -10,9 +10,10 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { toggleShoppingMode } from "../actions/itemsActions";
-import RegisterModal from "./RegisterModal";
-import LoginModal from "./LoginModal";
-import Logout from "./Logout";
+import { getPage } from "../actions/pageActions";
+import RegisterModal from "./authentication/RegisterModal";
+import LoginModal from "./authentication/LoginModal";
+import Logout from "./authentication/Logout";
 
 function AppNavbar(props) {
 
@@ -20,7 +21,7 @@ function AppNavbar(props) {
 
     return (
         <div>
-            <Navbar color="dark" dark expand="md" className="mb-3 px-3">
+            <Navbar color="dark" dark expand="md" className="px-3">
                 <NavbarBrand href="/">
                     <img src={process.env.PUBLIC_URL + "/groceries.png"} alt="logo" className="me-2" style={{width: "30px"}}/> 
                     {props.user ? props.user.firstName+"'s Grocery List" : "Grocery List"}
@@ -42,9 +43,17 @@ function AppNavbar(props) {
                         <NavItem className={props.isAuthenticated ? "ml-auto visible" : "hidden"}>
                             <NavLink 
                                 href="#"
-                                onClick={() => props.toggleShoppingMode()}
+                                onClick={() => props.getPage("grocery-list")}
                             >
-                                Shopping Mode
+                                Grocery List
+                            </NavLink>
+                        </NavItem>
+                        <NavItem className={props.isAuthenticated ? "ml-auto visible" : "hidden"}>
+                            <NavLink 
+                                href="#"
+                                onClick={() => props.getPage("recipes")}
+                            >
+                                Recipes
                             </NavLink>
                         </NavItem>
                     </Nav>
@@ -56,7 +65,8 @@ function AppNavbar(props) {
 
 const mapStateToProps = (state) => ({
     user: state.users.user,
-    isAuthenticated: state.users.isAuthenticated
+    isAuthenticated: state.users.isAuthenticated,
+    page: state.page.page
 });
 
-export default connect(mapStateToProps, { toggleShoppingMode })(AppNavbar);
+export default connect(mapStateToProps, { getPage })(AppNavbar);
