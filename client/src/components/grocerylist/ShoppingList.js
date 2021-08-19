@@ -5,6 +5,7 @@ import {
     ListGroupItem,
     Button
 } from "reactstrap";
+import { EyeIcon, TrashIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
 import { getItems, updateItem, deleteItem, foundItem, clearItems } from "../../actions/itemsActions";
 
@@ -29,9 +30,9 @@ function ShoppingList(props) {
         <Container className="mb-5">
             {itemsList.map(category => {
                     return (
-                        <div className="container">
+                        <div className="container" key={category._id}>
                             <div className="row">
-                            <ListGroupItem key={category._id} color="dark" className="category-header col-12 mt-3 mb-1">{category._id.toUpperCase()}</ListGroupItem>
+                            <ListGroupItem color="dark" className="category-header col-12 mt-3 mb-1">{category._id.toUpperCase()}</ListGroupItem>
                             {
                                 category.items.map(item => {
                                 return ( 
@@ -83,9 +84,9 @@ function ShoppingList(props) {
                                                             found: item.found
                                                         });
                                                     }}
-                                                    className={shoppingMode ? "found-rem visible" : "found-rem hidden"}
+                                                    className={shoppingMode ? "remove-found-button visible" : "hidden"}
                                                     >
-                                                        X
+                                                        <EyeIcon className="button-icon"/>
                                                 </Button>
                                                 <Button
                                                     color="danger"
@@ -96,9 +97,9 @@ function ShoppingList(props) {
                                                             category: item.category
                                                         });
                                                     }}
-                                                    className={shoppingMode ? "found-rem hidden" : "found-rem visible"}
-                                                    >
-                                                        X
+                                                    className={shoppingMode ? "hidden" : "remove-found-button visible"}
+                                                >
+                                                        <TrashIcon className="button-icon"/>
                                                 </Button>
                                             </div>
                                             </ListGroupItem>

@@ -9,6 +9,12 @@ export const RESET_FOUND_ITEMS = "RESET_FOUND_ITEMS";
 export const TOGGLE_SHOPPING_MODE = "TOGGLE_SHOPPING_MODE";
 export const CLEAR_ITEMS = "CLEAR_ITEMS";
 
+// Recipes actions
+export const RECIPES_LOADING = "RECIPES_LOADING";
+export const RECIPES_LOADED = "RECIPES_LOADED";
+export const ADD_RECIPE = "ADD_RECIPE";
+export const CLEAR_RECIPES = "CLEAR_RECIPES";
+
 // User actions
 export const USER_LOADING = "USER_LOADING";
 export const USER_LOADED = "USER_LOADED";

@@ -21,8 +21,11 @@ function AppNavbar(props) {
 
     return (
         <div>
-            <Navbar color="dark" dark expand="md" className="px-3">
-                <NavbarBrand href="/">
+            <Navbar color="dark" dark expand="md" className="px-3 fixed-top">
+                <NavbarBrand 
+                    href="#"
+                    onClick={() => props.getPage("grocery-list")}
+                >
                     <img src={process.env.PUBLIC_URL + "/groceries.png"} alt="logo" className="me-2" style={{width: "30px"}}/> 
                     {props.user ? props.user.firstName+"'s Grocery List" : "Grocery List"}
                 </NavbarBrand>

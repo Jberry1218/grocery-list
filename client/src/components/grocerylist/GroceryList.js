@@ -6,7 +6,7 @@ import ShoppingList from "./ShoppingList";
 function GroceryList(props) {
 
     return (
-        <div className={props.page === "grocery-list" ? "visible" : "hidden"}>
+        <div className={props.page === "grocery-list" ? "visible body" : "hidden"}>
             <ItemButtons />
             <ShoppingList />
         </div>

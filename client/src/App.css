@@ -2,6 +2,10 @@
     background-color: #292b2c;
 }
 
+.body {
+    margin-top: 60px;
+}
+
 .action-button-container {
     display: flex;
     flex-direction: row;
@@ -14,15 +18,15 @@
 }
 
 .button-icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
+    width: 25px;
+    height: 25px;
 }
 
 .category-header {
     background-color: #292b2c;
     color: white;
     font-size: 1.1rem;
+    border: none;
 }
 
 .item-container {
@@ -62,10 +66,22 @@
     margin-left: 10px;
 }
 
-.found-rem {
-    width: 40px;
-    height: 40px;
+.remove-found-button {
     margin-left: 5px;
+}
+
+.recipe-row {
+    display: flex;
+}
+
+.add-ingredient {
+    width: 170px;
+}
+
+.recipe-header {
+    padding: 8px 0px;
+    border: none;
+    background-color: #292b2c; 
 }
 
 .found {

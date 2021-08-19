@@ -10,7 +10,7 @@ const RecipeSchema = new Schema({
         type: String,
         required: true
     },
-    itemsList: [{
+    ingredients: [{
         name: {type: String, required: true},
         category: {type: String, required: true},
         count: {type: Number, required: true},

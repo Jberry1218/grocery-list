@@ -8,7 +8,7 @@ import { EyeIcon, ShoppingCartIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
 import { resetFoundItems, toggleShoppingMode } from "../../actions/itemsActions";
 
-function ActionButtons(props) {
+function ItemButtons(props) {
 
     const shoppingMode = props.items.shoppingMode;
 
@@ -18,9 +18,9 @@ function ActionButtons(props) {
                 <ItemSubmitModal />
                 <Button 
                     onClick={() => props.resetFoundItems()}
-                    className={shoppingMode ? "action-button hidden" : "action-button visible mt-3"}
+                    className={shoppingMode ? "hidden" : "action-button visible mt-3"}
                 >
-                    <EyeIcon className="button-icon"/>
+                    <EyeIcon className="button-icon me-2"/>
                     Reset Found
                 </Button>
                 <Button 
@@ -28,7 +28,7 @@ function ActionButtons(props) {
                     onClick={() => props.toggleShoppingMode()}
                     className="action-button mt-3"
                 >
-                    <ShoppingCartIcon className="button-icon"/>
+                    <ShoppingCartIcon className="button-icon me-2"/>
                     Shopping Mode
                 </Button>
             </Container>
@@ -41,4 +41,4 @@ const mapStateToProps = (state) => ({
     isAuthenticated: state.users.isAuthenticated
 });
 
-export default connect(mapStateToProps, { resetFoundItems, toggleShoppingMode })(ActionButtons);
+export default connect(mapStateToProps, { resetFoundItems, toggleShoppingMode })(ItemButtons);

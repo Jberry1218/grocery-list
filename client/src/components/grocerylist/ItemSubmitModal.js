@@ -45,13 +45,12 @@ function ItemSubmitModal(props) {
                 className={shoppingMode ? "action-button hidden" : "action-button visible mt-3"}
                 onClick={toggleModal}
             >   
-                <PlusCircleIcon className="button-icon"/>
+                <PlusCircleIcon className="button-icon me-2"/>
                 Add New Item
             </Button>
             <Modal
                 isOpen={modal}
                 toggle={toggleModal}
-                animation={false}
             >
                 <div className="modal-header">
                     <h5 className="modal-title">
