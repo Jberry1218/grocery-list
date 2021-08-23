@@ -6,15 +6,13 @@ import ShoppingList from "./ShoppingList";
 function GroceryList(props) {
 
     return (
-        <div className={props.page === "grocery-list" ? "visible body" : "hidden"}>
+        <div>
             <ItemButtons />
             <ShoppingList />
         </div>
     );
 }
 
-const mapStateToProps = (state) => ({
-    page: state.page.page
-});
+const mapStateToProps = (state) => ({});
 
 export default connect(mapStateToProps, {})(GroceryList);

@@ -9,6 +9,7 @@ import {
     REGISTER_FAIL
 } from "../actions/types";
 import { returnErrors } from "./errorsActions";
+import { getPage } from "./pageActions";
 import axios from "axios";
 
 // Check token and load user
@@ -59,7 +60,8 @@ export const login = profile => dispatch => {
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res.data
-            })
+            }),
+            dispatch(getPage("grocery-list"))
         )
         .catch(err => {
             dispatch(returnErrors(err.response.data, err.response.status, "LOGIN_FAIL"))
@@ -70,10 +72,11 @@ export const login = profile => dispatch => {
 }
 
 // Logout user
-export const logout = () => {
-    return {
+export const logout = () => dispatch => {
+    dispatch(getPage("welcome"))
+    dispatch({
         type: LOGOUT_SUCCESS
-    }
+    })
 }
 
 // Setup config / headers and token

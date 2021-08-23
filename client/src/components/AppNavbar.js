@@ -9,7 +9,6 @@ import {
     NavLink
 } from "reactstrap";
 import { connect } from "react-redux";
-import { toggleShoppingMode } from "../actions/itemsActions";
 import { getPage } from "../actions/pageActions";
 import RegisterModal from "./authentication/RegisterModal";
 import LoginModal from "./authentication/LoginModal";

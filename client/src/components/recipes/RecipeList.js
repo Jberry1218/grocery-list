@@ -5,9 +5,10 @@ import {
     ListGroupItem,
     Button
 } from "reactstrap";
-import { PencilAltIcon, TrashIcon } from "@heroicons/react/solid";
+import EditRecipeModal from "./EditRecipeModal";
+import { TrashIcon, BookOpenIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
-import { getRecipes, clearRecipes } from "../../actions/recipesActions";
+import { getRecipes, clearRecipes, deleteRecipe } from "../../actions/recipesActions";
 
 function RecipeList(props) {
     
@@ -29,29 +30,34 @@ function RecipeList(props) {
         <Container className="mb-5">
             {recipes.map(recipe => {
                     return (
-                        <div className="container" key={recipe.name}>
+                        <Container className="p-0" key={recipe.name}>
                             <div className="recipe-header mt-3 mb-1">
                                 <div className="row m-auto">
-                                    <ListGroupItem className="category-header col-12 text-center">
-                                        {recipe.name.toUpperCase()}
+                                    <ListGroupItem className="recipe-title col-12 text-center">
+                                        <a  className="recipe-link"
+                                            href={recipe.url ? recipe.url : `#${recipe.name}`}
+                                            target={recipe.url ? "_blank" : "_self"}
+                                        >
+                                            <BookOpenIcon className={recipe.url ? "button-icon" : "hidden"} />
+                                        </a>
+                                            {recipe.name.toUpperCase()}
                                     </ListGroupItem>
                                 </div>
-                                <div className="row m-auto justify-content-center">
-                                    <Button
-                                        color="secondary"
-                                        onClick={() => props.resetFoundItems()}
-                                        className="col-2"
-                                    >
-                                        <PencilAltIcon className="button-icon"/>
-                                    </Button>
+                                <div className="row m-0 justify-content-center">
+                                    <div className="col-5 col-md-2 flex-center">
+                                        <EditRecipeModal name={recipe.name}/>
+                                    </div>
                                     <div className="col-1" />
-                                    <Button
-                                        color="danger"
-                                        onClick={() => props.resetFoundItems()}
-                                        className="col-2"
-                                    >
-                                        <TrashIcon className="button-icon"/>
-                                    </Button>
+                                    <div className="col-5 col-md-2 flex-center">
+                                        <Button
+                                            color="danger"
+                                            onClick={() => props.deleteRecipe({ id: recipe._id })}
+                                            style={{width: 100}}
+                                            className="flex-center"
+                                        >
+                                            <TrashIcon className="button-icon"/>
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
                             <div className="row m-auto">
@@ -60,17 +66,27 @@ function RecipeList(props) {
                                     return ( 
                                         <ListGroup 
                                             key={ingredient.id} 
-                                            className="col-12 col-lg-6 p-0"
+                                            className="col-12 col-lg-6 p-0 flex"
                                         >
                                             <ListGroupItem>
-                                                {ingredient.name[0].toUpperCase() + ingredient.name.slice(1)}
+                                                <div className="item-container row">
+                                                    <div className="item-count col-2 col-md-3">
+                                                            {ingredient.count}
+                                                    </div>
+                                                    <div className="col-5 col-md-7 text-center">
+                                                    {ingredient.name[0].toUpperCase() + ingredient.name.slice(1)}
+                                                    </div>
+                                                    <div className="ingredient-category-div col-5 col-md-3 text-end">
+                                                            {ingredient.category}
+                                                    </div>
+                                                </div>
                                             </ListGroupItem>
                                         </ListGroup>
                                     )
                                     })
                                 }
                             </div>
-                        </div>
+                        </Container>
                     )
                 })
             }
@@ -86,5 +102,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
     getRecipes,
-    clearRecipes
+    clearRecipes,
+    deleteRecipe
 })(RecipeList);

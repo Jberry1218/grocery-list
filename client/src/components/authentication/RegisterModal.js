@@ -68,7 +68,6 @@ function RegisterModal(props) {
             <Modal
                 isOpen={modal}
                 toggle={toggleModal}
-                animation={false}
             >
                 <div className="modal-header">
                     <h5 className="modal-title">

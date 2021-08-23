@@ -1,3 +1,9 @@
+.welcome-image {
+    width: 80%;
+    height: auto;
+    margin: auto;
+}
+
 .navbar-item:hover {
     background-color: #292b2c;
 }
@@ -20,6 +26,7 @@
 .button-icon {
     width: 25px;
     height: 25px;
+    margin-right: 5px;
 }
 
 .category-header {
@@ -74,14 +81,40 @@
     display: flex;
 }
 
-.add-ingredient {
-    width: 170px;
+.modal-title {
+    font-size: 1.4rem;
 }
 
 .recipe-header {
     padding: 8px 0px;
     border: none;
     background-color: #292b2c; 
+}
+
+.recipe-title {
+    background-color: #292b2c;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+}
+
+.recipe-link {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.recipe-link:hover {
+    color: #BBBBBB;
+}
+
+.ingredient-category-div {
+    text-decoration: italic;
+    color: grey;
+}
+
+.inline {
+    display: inline;
 }
 
 .found {
@@ -98,4 +131,9 @@
 
 .hidden {
     display: none;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
 }

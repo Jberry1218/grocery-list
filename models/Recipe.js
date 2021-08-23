@@ -6,6 +6,9 @@ const RecipeSchema = new Schema({
         type: String,
         required: true
     },
+    url: {
+        type: String
+    },
     userId: {
         type: String,
         required: true

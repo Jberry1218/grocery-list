@@ -1,7 +1,7 @@
 import { PAGE_LOADING, PAGE_LOADED } from "../actions/types";
 
 const initialState = {
-    page: null,
+    page: "welcome",
     isLoading: false
 }
 

@@ -12,7 +12,9 @@ export const CLEAR_ITEMS = "CLEAR_ITEMS";
 // Recipes actions
 export const RECIPES_LOADING = "RECIPES_LOADING";
 export const RECIPES_LOADED = "RECIPES_LOADED";
+export const UPDATE_RECIPE = "UPDATE_RECIPE";
 export const ADD_RECIPE = "ADD_RECIPE";
+export const DELETE_RECIPE = "DELETE_RECIPE";
 export const CLEAR_RECIPES = "CLEAR_RECIPES";
 
 // User actions

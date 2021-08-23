@@ -17,14 +17,19 @@ router.get("/", auth, (req, res) => {
 });
 
 // @route   DELETE api/recipes/delete
-// @desc    Delete an item
+// @desc    Delete a recipe
 router.delete("/delete", (req, res) => {
+    Recipe.findById(req.body.id)
+        .then(recipe => recipe.remove()
+            .then(() => res.json(req.body))
+        )
+        .catch(err => res.status(404).json({recipeDeleted: false}));
 })
 
 // @route   POST api/recipes/add
 // @desc    Add a recipe
 router.post("/add", (req, res) => {
-    const recipe = new Recipe({name: req.body.name, userId: req.body.userId, ingredients: req.body.ingredients});
+    const recipe = new Recipe({name: req.body.name, url: req.body.url, userId: req.body.userId, ingredients: req.body.ingredients});
     recipe.save((err, savedRecipe) => {
         if (err) return res.status(404).json({recipeAdded: false});
         res.json(savedRecipe)
@@ -41,9 +46,19 @@ router.put("/found", (req, res) => {
 router.put("/foundreset", (req, res) => {
 });
 
-// @route   POST api/recipes/edit
-// @desc    Edit a recipe
-router.put("/edit", (req, res) => {
+// @route   POST api/recipes/update
+// @desc    Update a recipe
+router.put("/update", (req, res) => {
+    const recipeChanges = { "$set": {
+        name: req.body.name,
+        url: req.body.url,
+        userId: req.body.userId,
+        ingredients: req.body.ingredients
+    }}
+    Recipe.findOneAndUpdate({ _id: req.body.id }, recipeChanges, { new: true }, (err, updatedRecipe) => {
+        if (err) return res.status(404).json({recipeUpdated: false});
+        res.json(updatedRecipe)
+    });
 });
 
 module.exports = router;

@@ -45,7 +45,7 @@ function ItemSubmitModal(props) {
                 className={shoppingMode ? "action-button hidden" : "action-button visible mt-3"}
                 onClick={toggleModal}
             >   
-                <PlusCircleIcon className="button-icon me-2"/>
+                <PlusCircleIcon className="button-icon"/>
                 Add New Item
             </Button>
             <Modal
