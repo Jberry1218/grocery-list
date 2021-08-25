@@ -1,5 +1,6 @@
 import React from "react";
 import ItemSubmitModal from "./ItemSubmitModal";
+import RecipeSubmitModal from "./RecipeSubmitModal";
 import {
     Container,
     Button
@@ -16,6 +17,7 @@ function ItemButtons(props) {
         <div>
             <Container className="action-button-container">
                 <ItemSubmitModal />
+                <RecipeSubmitModal />
                 <Button 
                     onClick={() => props.resetFoundItems()}
                     className={shoppingMode ? "hidden" : "action-button visible mt-3"}

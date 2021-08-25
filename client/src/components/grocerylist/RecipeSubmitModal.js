@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Button, 
     Col,
-    Container,
     Modal,
     ModalBody,
     Form,
@@ -11,17 +10,38 @@ import {
 } from "reactstrap";
 import { PlusCircleIcon, TrashIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
-import { addRecipe } from "../../actions/recipesActions";
+import { addItem } from "../../actions/itemsActions";
 
-function CreateRecipeModal(props) {
+function RecipeSubmitModal(props) {
+
+    const recipeList = props.recipes;
+    let recipe;
 
     const itemsList = props.items.itemsList;
+    const shoppingMode = props.items.shoppingMode;
 
     const [recipeName, changeRecipeName] = useState("");
-    const [recipeUrl, changeRecipeUrl] = useState("");
-    const [ingredientCount, changeIngredientCount] = useState(1);
+
+    for (let i = 0; i < recipeList.length; i++) {
+        if (recipeList[i].name === recipeName) {
+            recipe = recipeList[i];
+            break;
+        }
+    }
+
+    const [ingredientCount, changeIngredientCount] = useState(0);
     const [ingredients, changeIngredients] = useState([]);
     const [deleteView, changeDeleteView] = useState(false);
+
+    useEffect(() => {
+        if (recipe !== undefined) {
+            changeIngredientCount(recipe.ingredients.length);
+            changeIngredients(recipe.ingredients);
+        } else {
+            changeIngredientCount(0);
+            changeIngredients([]);
+        }
+    }, [recipeName]);
 
     let ingredientInputs = [];
 
@@ -109,37 +129,38 @@ function CreateRecipeModal(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.addRecipe({
-            name: recipeName,
-            url: recipeUrl,
-            userId: props.user._id,
-            ingredients: ingredients
-        });
+        for (let i = 0; i < ingredients.length; i++) {
+            props.addItem({
+                name: ingredients[i].name,
+                category: ingredients[i].category.toLowerCase(),
+                count: ingredients[i].count,
+                userId: props.user._id
+            });
+        }
         document.getElementById("recipe-form").reset();
-        changeIngredientCount(1);
+        changeRecipeName("");
+        changeDeleteView(false);
         toggleModal();
     }
 
     const [modal, setModal] = useState(false);
     const toggleModal = () => {
-        changeIngredientCount(1);
-        changeRecipeName("");
-        changeRecipeUrl("");
-        changeIngredients([]);
-        changeDeleteView(false);
         setModal(!modal);
+        if (!modal) {
+            changeRecipeName("");
+            changeDeleteView(false);
+        }
     }
 
     return (
         <div>
-        <Container className="action-button-container">
             <Button
-                color="dark"
-                className="action-button mt-3"
+                color="warning"
+                className={shoppingMode ? "action-button hidden" : "action-button visible mt-3"}
                 onClick={toggleModal}
             >   
                 <PlusCircleIcon className="button-icon me-1"/>
-                Add New Recipe
+                Add From Recipe
             </Button>
             <Modal
                 isOpen={modal}
@@ -147,7 +168,7 @@ function CreateRecipeModal(props) {
             >
                 <div className="modal-header">
                     <h5 className="modal-title">
-                        Add Recipe
+                        Add Items From Recipe
                     </h5>
                     <button
                         className="btn-close"
@@ -159,36 +180,29 @@ function CreateRecipeModal(props) {
                         <FormGroup row className="mt-1">
                             <div className="modal-subheader">
                                 <h5 className="modal-subtitle">
-                                    Name
+                                    Choose Recipe
                                 </h5>
                             </div>
                             <div className="recipe-row">
                                 <Input 
-                                        type="text"
-                                        name="recipe-name"
-                                        id="recipe-name"
-                                        autoComplete="off"
-                                        className="mb-2"
-                                        required
-                                        onChange={e => changeRecipeName(e.target.value)}
+                                    type="text"
+                                    name="recipes"
+                                    className="recipe-name"
+                                    autoComplete="off"
+                                    list="recipes"
+                                    placeholder="Recipe"
+                                    required
+                                    onChange={e => {
+                                        changeRecipeName(e.target.value);
+                                    }} 
                                 />
+                                <datalist id="recipes">
+                                    {recipeList.map(recipe => {
+                                        return <option key={recipe._id}>{recipe.name[0].toUpperCase() + recipe.name.slice(1)}</option>
+                                    })}
+                                </datalist>
                             </div>
-                            <div className="modal-subheader">
-                                <h5 className="modal-subtitle">
-                                    URL
-                                </h5>
-                            </div>
-                            <div className="recipe-row">
-                                <Input 
-                                        type="text"
-                                        name="recipe-url"
-                                        id="recipe-url"
-                                        autoComplete="off"
-                                        className="mb-2"
-                                        onChange={e => changeRecipeUrl(e.target.value)}
-                                />
-                            </div>
-                            <div className="modal-subheader">
+                            <div className={recipe ? "modal-subheader mt-2" : "hidden"}>
                                 <h5 className="modal-subtitle">
                                     Ingredients
                                 </h5>
@@ -196,20 +210,9 @@ function CreateRecipeModal(props) {
                             {ingredientInputs}
                             <div>
                                 <Button
-                                    color="success"
-                                    type="button"
-                                    className="action-button mt-3"
-                                    onClick={() => {changeIngredientCount(ingredientCount + 1)}}
-                                >   
-                                    <PlusCircleIcon className="button-icon me-1"/>
-                                    Add Ingredient
-                                </Button>
-                            </div>
-                            <div>
-                                <Button
                                     color="danger"
                                     type="button"
-                                    className="action-button mt-3"
+                                    className={recipe ? "action-button mt-3" : "hidden"}
                                     onClick={() => {changeDeleteView(!deleteView)}}
                                 >   
                                     <TrashIcon className="button-icon me-1"/>
@@ -220,20 +223,20 @@ function CreateRecipeModal(props) {
                                 color="dark"
                                 className="mt-3"
                             >
-                                Save Recipe
+                                Add Items
                             </Button>
                         </FormGroup>
                     </Form>
                 </ModalBody>
             </Modal>
-        </Container>
         </div>
     )
 }
 
 const mapStateToProps = (state) => ({
     items: state.items,
-    user: state.users.user
+    user: state.users.user,
+    recipes: state.recipes.recipes
 });
 
-export default connect(mapStateToProps, { addRecipe })(CreateRecipeModal);
+export default connect(mapStateToProps, { addItem })(RecipeSubmitModal);

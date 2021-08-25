@@ -6,15 +6,13 @@ import RecipeList from "./RecipeList";
 function Recipes(props) {
 
     return (
-        <div className={props.page === "recipes" ? "visible body" : "hidden"}>
+        <div>
            <CreateRecipeModal /> 
            <RecipeList /> 
         </div>
     );
 }
 
-const mapStateToProps = (state) => ({
-    page: state.page.page
-});
+const mapStateToProps = (state) => ({});
 
 export default connect(mapStateToProps, {})(Recipes);

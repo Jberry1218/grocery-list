@@ -34,9 +34,6 @@ function EditRecipeModal(props) {
 
     let ingredientInputs = [];
 
-    console.log(recipe);
-    console.log(ingredients);
-
     const displayIngredients = () => {
         for (let i = 0; i < ingredientCount; i++) {
             ingredientInputs.push(
@@ -85,7 +82,7 @@ function EditRecipeModal(props) {
                         <Input 
                             type="number"
                             name="count"
-                            className="ingredient-count"
+                            className="ingredient-count-input"
                             placeholder="Count"
                             autoComplete="off"
                             value = {ingredients[i] ? ingredients[i].count : ""}
@@ -121,24 +118,19 @@ function EditRecipeModal(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.addRecipe({
+        props.updateRecipe({
+            id: recipe._id,
             name: recipeName,
             url: recipeUrl,
             userId: props.user._id,
             ingredients: ingredients
         });
         document.getElementById("recipe-form").reset();
-        changeIngredientCount(1);
         toggleModal();
     }
 
     const [modal, setModal] = useState(false);
     const toggleModal = () => {
-        changeIngredientCount(1);
-        changeRecipeName("");
-        changeRecipeUrl("");
-        changeIngredients([]);
-        changeDeleteView(false);
         setModal(!modal);
     }
 

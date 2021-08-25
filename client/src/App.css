@@ -207,7 +207,7 @@ body {
 
 .found {
     background: linear-gradient(45deg, rgb(175, 116, 116), var(--lightgrey));
-    border: none;
+    border: thin solid var(--lightgrey);
 }
 
 .item-default {

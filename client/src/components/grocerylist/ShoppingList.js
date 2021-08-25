@@ -8,6 +8,7 @@ import {
 import { EyeIcon, TrashIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
 import { getItems, updateItem, deleteItem, foundItem, clearItems } from "../../actions/itemsActions";
+import { getRecipes} from "../../actions/recipesActions";
 
 function ShoppingList(props) {
     
@@ -17,6 +18,7 @@ function ShoppingList(props) {
     useEffect(() => {
         if (props.user) {
             props.getItems(props.user._id);
+            props.getRecipes(props.user._id)
         }
     }, [props.user]);
 
@@ -124,6 +126,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
     getItems,
+    getRecipes,
     updateItem,
     deleteItem, 
     foundItem,
