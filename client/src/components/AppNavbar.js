@@ -26,7 +26,7 @@ function AppNavbar(props) {
                     onClick={() => props.getPage("grocery-list")}
                 >
                     <img src={process.env.PUBLIC_URL + "/groceries.png"} alt="logo" className="me-2" style={{width: "30px"}}/> 
-                    {props.user ? props.user.firstName+"'s Grocery List" : "Grocery List"}
+                    {props.user ? props.user.firstName+"'s GroceryPlanner" : "GroceryPlanner"}
                 </NavbarBrand>
                 <NavbarToggler onClick={() => toggleOpen(!isOpen)} />
                 <Collapse isOpen={ isOpen } navbar>

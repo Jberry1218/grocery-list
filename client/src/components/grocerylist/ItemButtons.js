@@ -13,14 +13,14 @@ function ItemButtons(props) {
     const shoppingMode = props.items.shoppingMode;
 
     return (
-        <div className="body">
+        <div>
             <Container className="action-button-container">
                 <ItemSubmitModal />
                 <Button 
                     onClick={() => props.resetFoundItems()}
                     className={shoppingMode ? "hidden" : "action-button visible mt-3"}
                 >
-                    <EyeIcon className="button-icon"/>
+                    <EyeIcon className="button-icon me-1"/>
                     Reset Found
                 </Button>
                 <Button 
@@ -28,7 +28,7 @@ function ItemButtons(props) {
                     onClick={() => props.toggleShoppingMode()}
                     className="action-button mt-3"
                 >
-                    <ShoppingCartIcon className="button-icon"/>
+                    <ShoppingCartIcon className="button-icon me-1"/>
                     Shopping Mode
                 </Button>
             </Container>

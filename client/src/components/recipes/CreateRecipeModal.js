@@ -138,7 +138,7 @@ function RecipeSubmitModal(props) {
                 className="action-button mt-3"
                 onClick={toggleModal}
             >   
-                <PlusCircleIcon className="button-icon"/>
+                <PlusCircleIcon className="button-icon me-1"/>
                 Add New Recipe
             </Button>
             <Modal
@@ -201,7 +201,7 @@ function RecipeSubmitModal(props) {
                                     className="action-button mt-3"
                                     onClick={() => {changeIngredientCount(ingredientCount + 1)}}
                                 >   
-                                    <PlusCircleIcon className="button-icon"/>
+                                    <PlusCircleIcon className="button-icon me-1"/>
                                     Add Ingredient
                                 </Button>
                             </div>
@@ -212,7 +212,7 @@ function RecipeSubmitModal(props) {
                                     className="action-button mt-3"
                                     onClick={() => {changeDeleteView(!deleteView)}}
                                 >   
-                                    <TrashIcon className="button-icon"/>
+                                    <TrashIcon className="button-icon me-1"/>
                                     {deleteView ? "Exit Delete View" : "Delete Ingredients"}
                                 </Button>
                             </div>

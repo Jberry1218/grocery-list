@@ -27,7 +27,7 @@ function RecipeList(props) {
     }, [props.isAuthenticated]);
 
     return (
-        <Container className="mb-5">
+        <Container>
             {recipes.map(recipe => {
                     return (
                         <Container className="p-0" key={recipe.name}>
@@ -68,9 +68,9 @@ function RecipeList(props) {
                                             key={ingredient.id} 
                                             className="col-12 col-lg-6 p-0 flex"
                                         >
-                                            <ListGroupItem>
+                                            <ListGroupItem className="ingredient-default">
                                                 <div className="item-container row">
-                                                    <div className="item-count col-2 col-md-3">
+                                                    <div className="ingredient-count col-2 col-md-3">
                                                             {ingredient.count}
                                                     </div>
                                                     <div className="col-5 col-md-7 text-center">

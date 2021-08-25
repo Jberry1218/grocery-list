@@ -17,7 +17,7 @@ function AppBody(props) {
     }
 
     return (
-        <div>
+        <div className="app-body">
             {renderPage()}
         </div>
     );

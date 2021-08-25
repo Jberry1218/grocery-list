@@ -27,7 +27,7 @@ function ShoppingList(props) {
     }, [props.isAuthenticated]);
 
     return (
-        <Container className="mb-5">
+        <Container>
             {itemsList.map(category => {
                     return (
                         <div className="container" key={category._id}>
@@ -41,14 +41,14 @@ function ShoppingList(props) {
                                         className="col-12 col-lg-6 p-0"
                                     >
                                         <ListGroupItem 
-                                            className={item.found ? "found" : "not-found"}
+                                            className={item.found ? "found" : "item-default"}
                                         >
                                             <div className="item-container">
                                                 <div className="incremenent-buttons-counter">
                                                     <div className="increment-buttons-container">
                                                         <Button
-                                                            className="increment-buttons"
                                                             color="success"
+                                                            className="increment-buttons"
                                                             onClick={() => {
                                                                 props.updateItem({
                                                                     id: item.id,

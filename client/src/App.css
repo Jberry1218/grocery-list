@@ -1,15 +1,90 @@
-.welcome-image {
-    width: 80%;
-    height: auto;
-    margin: auto;
+:root {
+    --primary: #292b2c;
+    --darkgrey: #4A4C4D;
+    --lightgrey: #DDDDDD;
+    --category: #004aff;
+    --secondary: #96ddff;
+    --background: #fad291;
 }
+
+html, body, #root, .App {
+    height: 100%;
+}
+
+body {
+    background-color: var(--background);
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.app-body {
+    display: inline-block;
+    padding: 10px;
+    margin: 70px 10px 20px 10px;
+    background-color: white;
+    box-shadow: 10px 10px 10px #777777;
+    border-radius: 10px;
+}
+
+.welcome-div {
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: none;
+}
+
+.welcome-title {
+    display: block;
+    font-style: italic;
+    margin-bottom: 10px;
+    font-size: 35px;
+    font-weight: 900;
+}
+
+.welcome-image-div {
+    width: 350px;
+    height: 350px;
+}
+
+.welcome-text-div {
+    margin-top: 80px;
+    margin-left: 60px;
+    width: 350px;
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.welcome-image {
+    width: 100%;
+    background-size: contain;
+    border: thick solid black;
+    border-radius: 50%;
+    background-color: white;
+}
+
+@media screen and (max-width: 850px) {
+    .welcome-div {
+        flex-wrap: wrap;
+        align-content: start;
+    }
+    .welcome-image-div {
+        width: 300px;
+        height: 300px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .welcome-text-div {
+        margin-top: 50px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+  }
 
 .navbar-item:hover {
-    background-color: #292b2c;
-}
-
-.body {
-    margin-top: 60px;
+    background-color: var(--primary);
 }
 
 .action-button-container {
@@ -26,11 +101,10 @@
 .button-icon {
     width: 25px;
     height: 25px;
-    margin-right: 5px;
 }
 
 .category-header {
-    background-color: #292b2c;
+    background-color: var(--primary);
     color: white;
     font-size: 1.1rem;
     border: none;
@@ -64,7 +138,21 @@
 }
 
 .item-count {
-    border: 1px solid black;
+    background-color: var(--darkgrey);
+    color: white;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.ingredient-count {
+    background-color: var(--darkgrey);
+    color: white;
+    border-radius: 5px;
     width: 40px;
     height: 40px;
     display: flex;
@@ -88,11 +176,11 @@
 .recipe-header {
     padding: 8px 0px;
     border: none;
-    background-color: #292b2c; 
+    background-color: var(--primary); 
 }
 
 .recipe-title {
-    background-color: #292b2c;
+    background-color: var(--primary);
     color: white;
     font-size: 1.2rem;
     border: none;
@@ -101,7 +189,7 @@
 .recipe-link {
     color: white;
     text-decoration: none;
-    display: block;
+    margin-right: 10px;
 }
 
 .recipe-link:hover {
@@ -110,7 +198,7 @@
 
 .ingredient-category-div {
     text-decoration: italic;
-    color: grey;
+    color: #666666;
 }
 
 .inline {
@@ -118,11 +206,18 @@
 }
 
 .found {
-    background-color: lightgrey;
+    background: linear-gradient(45deg, rgb(175, 116, 116), var(--lightgrey));
+    border: none;
 }
 
-.not-found {
-    background-color: white;
+.item-default {
+    background: linear-gradient(45deg, var(--lightgrey), white);
+    border: thin solid var(--lightgrey);
+}
+
+.ingredient-default {
+    background: linear-gradient(45deg, var(--lightgrey), white);
+    border: thin solid var(--lightgrey)
 }
 
 .visible {
