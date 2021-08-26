@@ -24,7 +24,7 @@ let findIndex = (state, category, item) => {
         catInd = i;
       }
     }
-    let itInd = 0;
+    let itInd = -1;
     if (catInd === -1) {
       return [catInd, itInd];
     }
@@ -70,8 +70,10 @@ export default function(state = initialState, action) {
                     _id: action.payload.category,
                     items: [item]
                 })
-            } else {
+            } else if (itInd === -1) {
                 state.itemsList[catInd].items.push(item)
+            } else {
+                state.itemsList[catInd].items[itInd].count = action.payload.count;
             }
             return {
                 ...state

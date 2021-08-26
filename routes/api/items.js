@@ -44,10 +44,11 @@ router.delete("/delete", (req, res) => {
 // @route   POST api/items/add
 // @desc    Add an item
 router.post("/add", (req, res) => {
-    const item = new Item({name: req.body.name, category: req.body.category, count: req.body.count, userId: req.body.userId});
-    item.save((err, savedItem) => {
+    const filter = { name: req.body.name };
+    const update = {name: req.body.name, category: req.body.category, $inc : {count: req.body.count}, userId: req.body.userId};
+    Item.findOneAndUpdate(filter, update, { new: true, upsert: true }, (err, item) => {
         if (err) return res.status(404).json({itemAdded: false});
-        res.json(savedItem)
+        res.json(item)
     });
 });
 
