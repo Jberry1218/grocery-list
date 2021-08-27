@@ -29,21 +29,12 @@ router.delete("/delete", (req, res) => {
 // @route   POST api/recipes/add
 // @desc    Add a recipe
 router.post("/add", (req, res) => {
-    const recipe = new Recipe({name: req.body.name, url: req.body.url, userId: req.body.userId, ingredients: req.body.ingredients});
-    recipe.save((err, savedRecipe) => {
+    const filter = { name: req.body.name };
+    const update = {name: req.body.name, url: req.body.url, userId: req.body.userId, ingredients: req.body.ingredients};
+    Recipe.findOneAndUpdate(filter, update, { new: true, upsert: true }, (err, recipe) => {
         if (err) return res.status(404).json({recipeAdded: false});
-        res.json(savedRecipe)
+        res.json(recipe)
     });
-});
-
-// @route   POST api/recipes/include
-// @desc    Toggle whether an item should be added to grocery list
-router.put("/found", (req, res) => {
-});
-
-// @route   GET api/recipes/includereset
-// @desc    Set all items to include
-router.put("/foundreset", (req, res) => {
 });
 
 // @route   POST api/recipes/update

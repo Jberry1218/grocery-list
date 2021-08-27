@@ -44,6 +44,7 @@ export default function(state = initialState, action) {
         case ADD_RECIPE:
             state.recipes.push(action.payload)
             return {
+                ...state
             }
         case DELETE_RECIPE: {
             let recipeInd = findIndex(state, action.payload.id);

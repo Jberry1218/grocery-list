@@ -66,15 +66,15 @@ function RecipeList(props) {
                                     return ( 
                                         <ListGroup 
                                             key={ingredient.id} 
-                                            className="col-12 col-lg-6 p-0 flex"
+                                            className="col-12 col-lg-6 p-0"
                                         >
                                             <ListGroupItem className="ingredient-default">
-                                                <div className="item-container row">
-                                                    <div className="ingredient-count col-2 col-md-3">
+                                                <div className="item-container">
+                                                    <div className="ingredient-count col-2 col-md-2">
                                                             {ingredient.count}
                                                     </div>
                                                     <div className="col-5 col-md-7 text-center">
-                                                    {ingredient.name[0].toUpperCase() + ingredient.name.slice(1)}
+                                                        {ingredient.name[0].toUpperCase() + ingredient.name.slice(1)}
                                                     </div>
                                                     <div className="ingredient-category-div col-5 col-md-3 text-end">
                                                             {ingredient.category}
@@ -105,3 +105,5 @@ export default connect(mapStateToProps, {
     clearRecipes,
     deleteRecipe
 })(RecipeList);
+
+
