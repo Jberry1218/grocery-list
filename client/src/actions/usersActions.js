@@ -56,13 +56,13 @@ export const register = registration => dispatch => {
 // Login user
 export const login = profile => dispatch => {
     axios.post("/api/users/login", profile)
-        .then(res => 
+        .then(res => {
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res.data
-            }),
+            })
             dispatch(getPage("grocery-list"))
-        )
+        })
         .catch(err => {
             dispatch(returnErrors(err.response.data, err.response.status, "LOGIN_FAIL"))
             dispatch({

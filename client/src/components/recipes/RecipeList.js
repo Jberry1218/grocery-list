@@ -6,7 +6,7 @@ import {
     Button
 } from "reactstrap";
 import EditRecipeModal from "./EditRecipeModal";
-import { TrashIcon, BookOpenIcon } from "@heroicons/react/solid";
+import { TrashIcon, AnnotationIcon } from "@heroicons/react/solid";
 import { connect } from "react-redux";
 import { getRecipes, clearRecipes, deleteRecipe } from "../../actions/recipesActions";
 
@@ -31,33 +31,25 @@ function RecipeList(props) {
             {recipes.map(recipe => {
                     return (
                         <Container className="p-0" key={recipe.name}>
-                            <div className="recipe-header mt-3 mb-1">
-                                <div className="row m-auto">
-                                    <ListGroupItem className="recipe-title col-12 text-center">
-                                        <a  className="recipe-link"
-                                            href={recipe.url ? recipe.url : `#${recipe.name}`}
-                                            target={recipe.url ? "_blank" : "_self"}
-                                        >
-                                            <BookOpenIcon className={recipe.url ? "button-icon" : "hidden"} />
-                                        </a>
-                                            {recipe.name.toUpperCase()}
-                                    </ListGroupItem>
+                            <div className="recipe-header px-3 m-auto mt-3 mb-1">
+                                <div className="recipe-title-div col-12 col-md-6">
+                                    <a  className={recipe.url ? "btn p-1 recipe-link" : "hidden"}
+                                        href={recipe.url ? recipe.url : `#${recipe.name}`}
+                                        target={recipe.url ? "_blank" : "_self"}
+                                    >
+                                        <AnnotationIcon className={recipe.url ? "button-icon" : "hidden"} />
+                                    </a>
+                                    <span className="recipe-title ms-2">{recipe.name.toUpperCase()}</span>  
                                 </div>
-                                <div className="row m-0 justify-content-center">
-                                    <div className="col-5 col-md-2 flex-center">
-                                        <EditRecipeModal name={recipe.name}/>
-                                    </div>
-                                    <div className="col-1" />
-                                    <div className="col-5 col-md-2 flex-center">
-                                        <Button
-                                            color="danger"
-                                            onClick={() => props.deleteRecipe({ id: recipe._id })}
-                                            style={{width: 100}}
-                                            className="flex-center"
-                                        >
-                                            <TrashIcon className="button-icon"/>
-                                        </Button>
-                                    </div>
+                                <div className="recipe-header-buttons col-12 col-md-3">
+                                    <EditRecipeModal name={recipe.name}/>
+                                    <Button
+                                        color="danger"
+                                        onClick={() => props.deleteRecipe({ id: recipe._id })}
+                                        className="ms-2"
+                                    >
+                                        <TrashIcon className="button-icon"/>
+                                    </Button>
                                 </div>
                             </div>
                             <div className="row m-auto">

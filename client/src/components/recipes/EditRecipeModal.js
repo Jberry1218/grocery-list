@@ -37,7 +37,7 @@ function EditRecipeModal(props) {
     const displayIngredients = () => {
         for (let i = 0; i < ingredientCount; i++) {
             ingredientInputs.push(
-                <div className="recipe-row">
+                <div>
                     <Col xs={5} className="mb-2">
                         <Input 
                             type="text"
@@ -135,11 +135,10 @@ function EditRecipeModal(props) {
     }
 
     return (
-        <div style={{width: 100}}>
+        <div className="inline">
             <Button
                 color="secondary"
                 onClick={toggleModal}
-                style={{width: 100}}
             >
                 <PencilAltIcon className="button-icon"/>
             </Button>
