@@ -37,7 +37,7 @@ function EditRecipeModal(props) {
     const displayIngredients = () => {
         for (let i = 0; i < ingredientCount; i++) {
             ingredientInputs.push(
-                <div>
+                <div className="recipe-row">
                     <Col xs={5} className="mb-2">
                         <Input 
                             type="text"
