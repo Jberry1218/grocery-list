@@ -16,7 +16,12 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // Import MongoDB
-const db = config.get("mongoURI");
+let db;
+if (process.env.NODE_ENV === "production") {
+    db = process.env.mongURI
+} else {
+    db = config.get("mongoURI");
+}
 
 // Connect to MongoDB
 mongoose

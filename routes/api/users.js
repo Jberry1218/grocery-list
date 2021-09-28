@@ -5,6 +5,14 @@ const config = require("config");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 
+// Get jwt secret
+let jwtSecret;
+if (process.env.NODE_ENV === "production") {
+    jwtSecret = process.env.jwtSecret;
+} else {
+    jwtSecret = config.get("jwtSecret");
+}
+
 // User model
 const User = require("../../models/User");
 
@@ -46,7 +54,7 @@ router.post("/register", (req, res) => {
                         .then(user => {
                             jwt.sign(
                                 { id: user.id },
-                                config.get("jwtSecret"),
+                                jwtSecret,
                                 { expiresIn: 7200 },
                                 (err, tok) => {
                                     if (err) throw err;
