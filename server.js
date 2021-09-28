@@ -18,7 +18,7 @@ app.use(express.urlencoded({extended: true}));
 // Import MongoDB
 let db;
 if (process.env.NODE_ENV === "production") {
-    db = process.env.mongURI
+    db = process.env.mongoURI
 } else {
     db = config.get("mongoURI");
 }
