@@ -92,7 +92,7 @@ router.post("/login", (req, res) => {
                     if(!isMatch) return res.status(400).json({ msg: "Incorrect password" })
                     jwt.sign(
                         { id: user.id },
-                        config.get("jwtSecret"),
+                        jwtSecret,
                         { expiresIn: 7200 },
                         (err, tok) => {
                             if (err) throw err;
